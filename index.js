@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
       // Send heart rate OSC message
       vrchatOSC.send({
         address: "/avatar/parameters/Heartrate",
-        args: [{ type: "i", value: parseInt(hr) }]
+        args: [{ type: "i", value: hr }]
       });
 
       if (chatbox === true) {
@@ -62,5 +62,8 @@ const server = http.createServer((req, res) => {
 
 // Start HTTP server
 server.listen(port, hostname, () => {
+  if (chatbox === true) {
+    console.log("Chatbox enabled");
+  }
   console.log(`Server running at http://${hostname}:${port}/\nWaiting for connection...`);
 });
