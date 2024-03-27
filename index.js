@@ -8,7 +8,7 @@ let parsedMessage = (content, heartRate) => {
   return content.replaceAll(/{heartRate}/g, heartRate);
 };
 
-const pino = require('pino')
+const pino = require("pino");
 const logger = pino.default(
   {
     level: "info",
@@ -54,7 +54,7 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       const postData = new URLSearchParams(body);
-      const hr = postData.get("rate");
+      const hr = Math.max(postData.get("rate"),0);
       logger.info(`Heart rate: ❤️ ${hr} bpm`);
 
       // Send heart rate OSC message
@@ -62,7 +62,6 @@ const server = http.createServer((req, res) => {
         address: "/avatar/parameters/Heartrate",
         args: [{ type: "i", value: hr }],
       });
-
       if (chatbox === true) {
         // Send chatbox message
 
