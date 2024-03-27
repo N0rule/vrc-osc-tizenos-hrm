@@ -4,8 +4,8 @@
   "description": "VRCHAT osc heartrate  monitor for TizenOS watches",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon .",
-    "start": "node ."
+    "dev": "chcp 65001 && nodemon index.js | pino-pretty",
+    "start": "chcp 65001 && node index.js | pino-pretty"
   },
   "keywords": [
     "TizenOS",
@@ -18,7 +18,9 @@
   "dependencies": {
     "module-alias": "^2.2.3",
     "nodemon": "^3.1.0",
-    "osc": "^2.4.4"
+    "osc": "^2.4.4",
+    "pino": "^8.19.0",
+    "pino-pretty": "^11.0.0"
   },
   "_moduleAliases": {
     "@root": ".",
