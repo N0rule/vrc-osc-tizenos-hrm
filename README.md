@@ -21,8 +21,8 @@ Theoretically should work on all Tizen OS Watches
 - Open app on your watch and insert your `local ip` and `desired port`, default is: `6547`
 - Open your terminal and run the following commands:
 ```
-git clone 
-cd 
+git clone https://github.com/N0rule/vrc-osc-tizenos-hrm.git
+cd vrc-osc-tizenos-hrm
 npm install
 ```
 - Wait for all the dependencies to be installed.
@@ -32,4 +32,4 @@ npm install
   <br>
 <h1 align="center"> 🤝 Contributing 🤝 </h1>
 
-- Feel free to [Fork]() this repository, create a feature branch and submit a pull request.
+- Feel free to [Fork](https://github.com/N0rule/vrc-osc-tizenos-hrm/fork) this repository, create a feature branch and submit a pull request.
