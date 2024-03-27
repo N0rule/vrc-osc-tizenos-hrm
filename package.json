@@ -1,0 +1,27 @@
+{
+  "name": "vrc-osc-tizenos-hrm",
+  "version": "1.0.0",
+  "description": "VRCHAT osc heartrate  monitor for TizenOS watches",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node ."
+  },
+  "keywords": [
+    "TizenOS",
+    "vrchat",
+    "osc",
+    "watch"
+  ],
+  "author": "N0rule",
+  "license": "ISC",
+  "dependencies": {
+    "module-alias": "^2.2.3",
+    "node-osc": "^9.1.1",
+    "nodemon": "^3.1.0"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@handlers": "handlers/"
+  }
+}
