@@ -1,13 +1,37 @@
+// Importing necessary modules
 require("module-alias/register");
 const osc = require("osc");
 const http = require("http");
 const { URLSearchParams } = require("url");
-const { chatbox_message, chatbox, hostname, port } = require("@root/config.js");
+const { offset, hrMessage, chatbox, hostname, port } = require("@root/config.js");
 
-let parsedMessage = (content, heartRate) => {
-  return content.replaceAll(/{heartRate}/g, heartRate);
+// Variable to store previous heart rate
+let previousHeartRate = null;
+
+// Function to get heart rate icon based on change
+const getHeartRateIcon = (currentHeartRate) => {
+  if (previousHeartRate === null) {
+    previousHeartRate = currentHeartRate;
+    return "";
+  }
+  let icon = "";
+  if (currentHeartRate > previousHeartRate) {
+    icon = "⤴️";
+  } else if (currentHeartRate < previousHeartRate) {
+    icon = "⤵️";
+  }
+  previousHeartRate = currentHeartRate;
+  return icon;
 };
 
+// Function to parse message with heart rate and change icon
+let parsedMessage = (content, heartRate, heartRateChangeIcon) => {
+  return content
+    .replaceAll(/{heartRate}/g, heartRate)
+    .replaceAll(/{heartRateChangeIcon}/g, heartRateChangeIcon);
+};
+
+// Importing logging modules
 const pino = require("pino");
 const logger = pino.default(
   {
@@ -25,6 +49,7 @@ const logger = pino.default(
     },
   })
 );
+
 // Initialize OSC client
 const vrchatOSC = new osc.UDPPort({
   remoteAddress: "localhost",
@@ -54,26 +79,26 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       const postData = new URLSearchParams(body);
-      const hr = Math.max(postData.get("rate"),0);
-      logger.info(`Heart rate: ❤️ ${hr} bpm`);
+      const heartRate = Math.max(parseInt(postData.get("rate")) + offset, 0);
+      const heartRateChangeIcon = getHeartRateIcon(heartRate);
+      logger.info("Current Heart Rate:" + " " + parsedMessage(hrMessage, heartRate, heartRateChangeIcon));
 
       // Send heart rate OSC message
       vrchatOSC.send({
         address: "/avatar/parameters/Heartrate",
-        args: [{ type: "i", value: hr }],
+        args: [{ type: "i", value: heartRate }],
       });
       if (chatbox === true) {
         // Send chatbox message
-
         vrchatOSC.send({
           address: "/chatbox/input",
           args: [
-            { type: "s", value: parsedMessage(chatbox_message, hr) },
+            { type: "s", value: parsedMessage(hrMessage, heartRate, heartRateChangeIcon) },
             { type: "T", value: true },
           ],
         });
         // Send chatbox message to console for debugging
-        // logger.info(parsedMessage(chatbox_message, hr))
+        // logger.info(parsedMessage(hrMessage, heartRate))
       }
 
       res.statusCode = 200;

@@ -17,8 +17,10 @@ Theoretically should work on all Tizen OS Watches
 - Galaxy Watch (SM-R800)
 
 ## 🚀 Getting Started
+- **Prerequisites:** You should have `Node.js` installed.
 - Install [HeartRateToWeb](https://galaxystore.samsung.com/detail/tUhSWQRbmv) on your watch.
-- Open app on your watch and insert your `local ip` and `desired port`, default is: `6547`
+- Open the app on your watch and insert your `local IP` and `desired port`. The default port is `6547`.
+- Set the delay to a minimum of `2000 ms` to avoid being rate-limited.
 - Open your terminal and run the following commands:
 ```
 git clone https://github.com/N0rule/vrc-osc-tizenos-hrm.git
@@ -26,9 +28,10 @@ cd vrc-osc-tizenos-hrm
 npm install
 ```
 - Wait for all the dependencies to be installed.
-- Open `config.js` and change the `hostname` and `port` to the same as on a watch.
-- Type `npm run start` to start the server.
-- ❗Remember to check your `firewall` for blocking conection.
+- Open `config.js` and change the `hostname` and `port` to match those on your watch.
+- Optionally, modify `offset` and `hrMessage` according to your preferences.
+- Type `npm run start` to initiate the server.
+- ❗ Remember to check your firewall settings to ensure there are no connection blocks.
   <br>
 <h1 align="center"> 🤝 Contributing 🤝 </h1>
 
