@@ -24,17 +24,13 @@ Theoretically should work on all Tizen OS Watches
 - Set the delay to a minimum of `2000 ms` to avoid being rate-limited.
 - Open your terminal and run the following commands:
   
-
+> [!TIP]
+> If you don't have Git installed (**git clone command**), you can manually download the repository [here](https://github.com/N0rule/vrc-osc-tizenos-hrm/archive/refs/heads/main.zip).
 ```
 git clone https://github.com/N0rule/vrc-osc-tizenos-hrm.git
 cd vrc-osc-tizenos-hrm
 npm install
 ```
-  **❗If you don't have Git installed, you can manually download the repository [here](https://github.com/N0rule/vrc-osc-tizenos-hrm/archive/refs/heads/main.zip).**
-
-
-
-
 - Wait for all the dependencies to be installed.
 - Open `config.js` and change the `hostname` and `port` to match those on your watch.
 - Optionally, modify `offset` and `hrMessage` according to your preferences.
